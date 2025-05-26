@@ -11,29 +11,7 @@ pub struct MousePlugin;
 
 impl Plugin for MousePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(
-            Update,
-            (click_sprite, mouse_click_system, mouse_move_system),
-        );
-    }
-}
-
-fn handle_mouse_clicks(
-    mouse_button_input: Res<ButtonInput<MouseButton>>,
-    window_query: Query<&Window, With<MainCamera>>,
-) {
-    let win = window_query.single().unwrap();
-    if mouse_button_input.pressed(MouseButton::Left) {
-        info!("click at {:?}", win.cursor_position());
-    }
-}
-
-fn click_sprite(
-    mut mouse_button_input_events: EventReader<MouseButtonInput>,
-    sprites: Query<&Sprite>,
-) {
-    for event in mouse_button_input_events.read() {
-        info!("{:?}", event);
+        app.add_systems(Update, (mouse_click_system, mouse_move_system));
     }
 }
 
